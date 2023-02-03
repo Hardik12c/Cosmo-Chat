@@ -77,8 +77,6 @@ router.post('/login',[
         if(!passwordCompare){
             return res.status(400).json({success,error: "The credentials entered are incorrect"});
         }
-        // Creating Token
-        // Payload
         const data={
             user:{
                 id:user.id

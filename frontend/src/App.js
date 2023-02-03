@@ -6,6 +6,7 @@ import Signup from "./components/Signup";
 import Error from "./components/Error";
 import Alert from "./components/Alert";
 import { useState } from "react";
+import Chat from "./components/Chat";
 function App() {
   const [alert, setalert] = useState(null);
   const showalert = (message, type) => {
@@ -23,6 +24,7 @@ function App() {
         <Header />
         <Alert alert={alert} />
         <Routes>
+          <Route path="/" element={<Chat />} />
           <Route path="/login" element={<Login showalert={showalert} />} />
           <Route path="/signup" element={<Signup showalert={showalert} />} />
           <Route path="*" element={<Error />} />
