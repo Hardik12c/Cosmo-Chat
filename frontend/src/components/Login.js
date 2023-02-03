@@ -7,7 +7,7 @@ export default function Login({ showalert }) {
   const postform = async (email, password) => {
     try {
       const { data } = await axios.post(
-        "",
+        "http://localhost:5000/api/auth/login",
         { email: email, password: password }
       );
       localStorage.setItem("token", data.token);

@@ -43,10 +43,10 @@ router.post('/register',[
                 id:user.id
             }
         }
-        const authToken = jwt.sign(data,JWT_SECRET);
+        const token = jwt.sign(data,JWT_SECRET);
 
         // Response the token after creating a new document
-        res.json({success:true,authToken})
+        res.json({success:true,token})
     }catch(error){
         console.log(error.message);
         res.status(500).send("Some Error occured");
@@ -84,10 +84,10 @@ router.post('/login',[
                 id:user.id
             }
         }
-        const authToken = jwt.sign(data,JWT_SECRET);
+        const token = jwt.sign(data,JWT_SECRET);
 
         // Response the token after creating a new document
-        res.json({success:true,authToken})
+        res.json({success:true,token})
     }catch(error){
         console.log(error.message);
         res.status(500).send("Some Error occured");
