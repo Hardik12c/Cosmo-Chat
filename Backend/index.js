@@ -1,20 +1,28 @@
-require('dotenv').config()
-const connectToMongo = require('./db');
-const express = require('express');
-const auth = require('./routes/auth');
-var cors = require('cors');
+require("dotenv").config();
+const connectToMongo = require("./Db/db");
+const express = require("express");
+const auth = require("./routes/auth");
+var cors = require("cors");
 
-connectToMongo();
+const port = process.env.PORT || 3000;
 
 const app = express();
-const port = 5000;
 
-app.use(cors())
+app.use(cors());
 app.use(express.json());
 
 // Available Routes
-app.use('/api/auth',auth);
+app.use("/api/auth", auth);
 
-app.listen(port, () => {
-  console.log(`Shoppers Club backend listening on port ${port}`)
-})
+const start = async () => {
+  try {
+    await connectToMongo(process.env.connectionstring);
+    app.listen(port, () =>
+      console.log(`app listening on port http://localhost:${port}/`)
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+start();
