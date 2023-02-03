@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Error from "./components/Error";
+import Alert from "./components/Alert";
+import { useState } from "react";
 function App() {
+  const [alert, setalert] = useState(null);
+  const showalert = (message, type) => {
+    setalert({
+      msg: message,
+      type: type,
+    });
+    setTimeout(() => {
+      setalert(null);
+    }, 2000);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <Header />
+        <Alert alert={alert} />
+        <Routes>
+          <Route path="/login" element={<Login showalert={showalert} />} />
+          <Route path="/signup" element={<Signup showalert={showalert} />} />
+          <Route path="*" element={<Error />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 
