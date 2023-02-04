@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import "../assets/css/index.css";
 export default function Login({ showalert }) {
   const navigate = useNavigate();
   const postform = async (email, password) => {
@@ -32,38 +32,43 @@ export default function Login({ showalert }) {
     setpassword("");
   };
   return (
-    <div className="container">
-      <h2 className="my-2">Login to CosmoChat</h2>
-      <form>
-        <div className="form-group my-2">
-          <label htmlFor="exampleInputEmail1">Email address</label>
-          <input
-            type="email"
-            name="email"
-            className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            placeholder="Enter email"
-            value={email}
-            onChange={handleinput}
-          />
+    <>
+      <div className="container">
+        <div className="mainbox">
+          <form className="loginform">
+            <h1>Sign In</h1>
+            <div className="form-elements">
+              <input
+                type="email"
+                id="loginemail"
+                aria-describedby="emailHelp"
+                placeholder="Enter email"
+                name="email"
+                className="form-control"
+                value={email}
+                onChange={handleinput}
+              />
+            </div>
+            <div className="form-elements">
+              <input
+                type="password"
+                id="loginpassword"
+                placeholder="Password"
+                className="form-control"
+                name="password"
+                value={password}
+                onChange={handlepassword}
+              />
+            </div>
+            <div className="submit-group">
+              <button type="submit" className="submit" onClick={submitform}>
+                Submit
+              </button>
+              <Link to={"/signup"}>Sign up</Link>
+            </div>
+          </form>
         </div>
-        <div className="form-group my-2">
-          <label htmlFor="exampleInputPassword1">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            name="password"
-            id="exampleInputPassword1"
-            placeholder="Password"
-            value={password}
-            onChange={handlepassword}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary" onClick={submitform}>
-          Submit
-        </button>
-      </form>
-    </div>
+      </div>
+    </>
   );
 }

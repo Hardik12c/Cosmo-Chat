@@ -1,0 +1,69 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* body{
+    background: linear-gradient(rgba(234,234,234, 0.83) ,rgba(234,234,234, 0.83) ), url("../img/map\ background.jpg") no-repeat center center/cover;
+} */
+.mainbox{
+    width: 100%;
+    margin: auto;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mainbox form{
+    width: 30%;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+    background-color: white;
+    padding: 38px;
+    border-radius: 10px;
+}
+.mainbox  h1{
+    text-align: center;
+    margin-bottom: 40px;
+    font-family: sans-serif;
+}
+.mainbox>form .form-elements{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0px;
+}
+.mainbox>form .form-elements input{
+    padding: 8px 10px;
+    width: 100%;
+    border-radius: 4px;
+    outline: none;
+    border: 1px solid black;
+}
+.submit-group{
+    display: flex;
+    align-items: center;
+    margin: auto;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+.submit-group a{
+    text-decoration: none;
+    color: black;
+}
+.submit-group .submit{
+    cursor: pointer;
+    padding: 8px 31px;
+    border-radius: 4px;
+    margin: 10px 0px;
+    background-color: rgb(0,145,255);
+    font-weight: 500;
+    color: white;
+}
+
+/* effects */
+.submit:hover{
+    opacity: 0.9;
+}
+.submit-group a:hover{
+    color: red;
+}
