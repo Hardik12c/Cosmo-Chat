@@ -8,31 +8,40 @@ const Chat = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [name, setName] = useState("");
+  const [name, setname] = useState("");
 
-  const fetchdata=async()=>{
-    try {
-      const {data}  = await axios.post("http://localhost:5000/api/auth/getuser",{}, {
-        headers: {
-          Authorization: `${localStorage.getItem("token")}`,
-        },
-      });
-      console.log(data);
-      // setName(data)
-    } catch (error) {
-      console.log(error);      
-    }
-
-  }
+  const fetchdata = () => {
+    return new Promise((resolve, reject) => {
+      (async () => {
+        try {
+          const { data } = await axios.post(
+            "http://localhost:5000/api/auth/getuser",
+            {},
+            {
+              headers: {
+                Authorization: `${localStorage.getItem("token")}`,
+              },
+            }
+          );
+          setname(data.name);
+          resolve(data.name);
+        } catch (error) {
+          console.log(error);
+          reject(error);
+        }
+      })();
+    });
+  };
   useEffect(() => {
-    if(localStorage.getItem('token')){
+    if (localStorage.getItem("token")) {
       fetchdata();
-    }else{
-      navigate('/login')
+    } else {
+      navigate("/login");
     }
   }, []);
 
   useEffect(() => {
+    console.log(name);
     if (name) {
       socket.emit("new-user-joined", name);
     }
@@ -70,6 +79,7 @@ const Chat = () => {
   const submitForm = (event) => {
     event.preventDefault();
     setMessages([...messages, { text: `You: ${message}`, position: "right" }]);
+    console.log(name);
     socket.emit("send", message);
     setMessage("");
   };
