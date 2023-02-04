@@ -1,7 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:cosmicchat/error.dart';
+import 'package:http/http.dart' as http;
 import 'package:cosmicchat/routes/route.dart';
 import 'package:cosmicchat/textbox.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,11 +16,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   late final TextEditingController _email;
   late final TextEditingController _password;
-  late final TextEditingController _name;
 
   @override
   void initState() {
-    _name = TextEditingController();
     _email = TextEditingController();
     _password = TextEditingController();
     super.initState();
@@ -25,7 +26,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void dispose() {
-    _name.dispose();
     _email.dispose();
     _password.dispose();
     super.dispose();
@@ -76,9 +76,16 @@ class _LoginPageState extends State<LoginPage> {
             height: 30.0,
           ),
           TextButton(
-              onPressed: () {
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil(chatRoute, (route) => false);
+              onPressed: () async {
+                try {
+                  final String email = _email.text;
+                  final String password = _password.text;
+                  await login(email, password);
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil(chatRoute, (route) => false);
+                } catch (e) {
+                  showErrorDialog(context, "Invalid Credentials");
+                }
               },
               child: const Text("Login")),
           // Column(
@@ -87,15 +94,34 @@ class _LoginPageState extends State<LoginPage> {
               // height: 10,
               disabledColor: Colors.blue,
               child: TextButton(
-                  onPressed: () {
+                  onPressed: () async {
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         registerRoute, (route) => false);
                   },
-                  child: Text("Register Here")))
+                  child: const Text("Register Here")))
           //   ],
           // )
         ],
       )),
     );
+  }
+}
+
+Future<void> login(String email, String password) async {
+  String url1 =
+      Platform.isAndroid ? 'http://10.12.52.152:5000' : 'http://localhost:5000';
+  final response = await http.post(
+    Uri.parse('$url1/api/auth/login'),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode({'email': email, 'password': password}),
+  );
+
+  final responseData = jsonDecode(response.body);
+  print(responseData['token']);
+
+  if (responseData['success']) {
+  } else {
+    // Handle the error
+    throw Exception('Failed to login: ${responseData['message']}');
   }
 }

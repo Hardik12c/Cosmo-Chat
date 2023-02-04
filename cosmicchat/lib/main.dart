@@ -8,24 +8,20 @@ void main() {
   runApp(const Myapp());
 }
 
-
 class Myapp extends StatelessWidget {
   const Myapp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       title: 'Login',
       home: const RegisterPage(),
       // initialRoute: registerRoute,
       routes: {
-      loginRoute: (context) => const LoginPage(),
-      registerRoute: (context) => const RegisterPage(),
-      chatRoute: (context) => const ChatPage(),
-    },
+        loginRoute: (context) => const LoginPage(),
+        registerRoute: (context) => const RegisterPage(),
+        chatRoute: (context) => const ChatPage(),
+      },
     );
   }
 }
-
-
-

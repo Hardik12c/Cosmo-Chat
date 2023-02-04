@@ -1,5 +1,6 @@
 import 'dart:convert';
-
+import 'dart:io';
+import 'package:cosmicchat/error.dart';
 import 'package:cosmicchat/routes/route.dart';
 import 'package:cosmicchat/textbox.dart';
 import 'package:flutter/material.dart';
@@ -93,26 +94,15 @@ class _RegisterPageState extends State<RegisterPage> {
               final password = _password.text;
 
               try {
-                var url = Uri.parse(
-                    "https://inotebook-backend-d9ht.onrender.com/api/v1/auth/register/");
-                var response = await http.post(
-                  url,
-                  body: jsonEncode(<String, String>{
-                    'name': name,
-                    'email': email,
-                    'password': password,
-                  }),
-                );
-                print('Response : $name');
-                var responseJson = jsonDecode(response.body);
-                var responseName = responseJson['name'];
-                print(responseJson);
-                print('Response : ${response}');
+                await register(name, email, password);
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil(chatRoute, (route) => false);
               } catch (e) {
-                print(e);
+                showErrorDialog(context, "Unable to register");
               }
             },
             child: const Text("Register"),
+            
           ),
           Column(
             children: <Widget>[
@@ -130,5 +120,24 @@ class _RegisterPageState extends State<RegisterPage> {
         ],
       )),
     );
+  }
+}
+
+Future<void> register(String name, String email, String password) async {
+  String url1 =
+      Platform.isAndroid ? 'http://10.12.52.152:5000' : 'http://localhost:5000';
+  final response = await http.post(
+    Uri.parse('$url1/api/auth/register'),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode({'name': name, 'email': email, 'password': password}),
+  );
+
+  final responseData = jsonDecode(response.body);
+  // print(responseData['success']);
+
+  if (responseData['success']) {
+  } else {
+    // Handle the error
+    throw Exception('Failed to register: ${responseData['message']}');
   }
 }
