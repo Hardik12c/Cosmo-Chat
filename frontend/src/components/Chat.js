@@ -12,7 +12,6 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [name, setname] = useState("");
   const [tag, settag] = useState("English");
-  const [index,setindex]=useState('0')
   const arr = ["en", "hi", "es", "fr", "ar", "bn", "ne"];
   const category = [
     {
@@ -26,10 +25,14 @@ const Chat = () => {
     { id: 5, lang: "Bengali" },
     { id: 6, lang: "Nepali" },
   ];
+
+  let index=0;
   const onchangehandler=(e)=>{
-    setindex(e.target.selectedIndex);
-    settag(e.target.value)
+    index=e.target.selectedIndex;
+    console.log(index);
+    settag(e.target.value);
   }
+
   const fetchdata = () => {
     return new Promise((resolve, reject) => {
       (async () => {
