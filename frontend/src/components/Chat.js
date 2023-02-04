@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import translate from "translate";
 const socket = io("http://localhost:5000");
 
 const Chat = () => {
@@ -41,7 +42,7 @@ const Chat = () => {
   }, []);
 
   useEffect(() => {
-    console.log(name);
+    // console.log(name);
     if (name) {
       socket.emit("new-user-joined", name);
     }
@@ -56,10 +57,12 @@ const Chat = () => {
     });
 
     socket.on("recieve", (data) => {
-      setMessages([
-        ...messages,
-        { text: `${data.name}: ${data.message}`, position: "left" },
-      ]);
+      changeMessage(data.name,data.message);
+      // setMessages([
+      //   ...messages,
+      //   { text: `${data.name}: ${recMessage}`, position: "left" },
+      // ]);
+      // setRecMessage("");
     });
 
     socket.on("leave", (leaveName) => {
@@ -75,11 +78,39 @@ const Chat = () => {
       socket.off("leave");
     };
   }, [messages]);
+ 
+  const changeMessage = (recName,messageToChange) => {
+    return new Promise((resolve, reject) => {
+      (async () => {
+        try {
+          const recMessage = await translate(messageToChange, "es");
+          setMessages([
+            ...messages,
+            { text: `${recName}: ${recMessage}`, position: "left" },
+          ]);
+        } catch (error) {
+          console.log(error);
+          reject(error);
+        }
+      })();
+    });
+  };
+
+  // const submitForm = async(event) => {
+  //   event.preventDefault();
+  //   socket.emit("send", message);
+  //   // const text = await translate(message, "es");
+  //   // setMessage(text);
+  //   changeMessage();
+  //   console.log(message);
+  //   setMessages([...messages, { text: `You: ${message}`, position: "right" }]);
+  //   setMessage("");
+  // };
 
   const submitForm = (event) => {
     event.preventDefault();
     setMessages([...messages, { text: `You: ${message}`, position: "right" }]);
-    console.log(name);
+    // console.log(name);
     socket.emit("send", message);
     setMessage("");
   };
