@@ -21,7 +21,6 @@ app.use(cors());
 app.use(express.json());
 
 
-const users={}
 const io = require('socket.io')(http, {
   cors: {
     origin: 'http://localhost:3000',
@@ -29,10 +28,6 @@ const io = require('socket.io')(http, {
 });
 io.on('connection', socket=>{
 console.log("backend connected")
-socket.on('new-user-joined', name=>{
-        users[socket.id] = name;
-        socket.broadcast.emit('user-joined', name);
-      });
       socket.on('send', async(data)=>{
         const user = await User.findById(data.id);
         if(user)
@@ -43,10 +38,6 @@ socket.on('new-user-joined', name=>{
         {
           console.log("User is null");
         }
-    });
-    socket.on('disconnect', message=>{
-        socket.broadcast.emit('leave', users[socket.id]);
-        delete users[socket.id];
     });
 });
   

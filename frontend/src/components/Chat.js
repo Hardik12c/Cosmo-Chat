@@ -29,7 +29,7 @@ const Chat = () => {
     { id: 6, lang: "Nepali" },
   ];
 
-  let index = 0;
+  let index;
   const onchangehandler = (e) => {
     index = e.target.selectedIndex;
     console.log(index);
@@ -60,6 +60,7 @@ const Chat = () => {
     });
   };
   useEffect(() => {
+    index=0;
     if (localStorage.getItem("token")) {
       fetchdata();
     } else {
