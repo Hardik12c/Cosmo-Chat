@@ -37,7 +37,7 @@ export default function Signup({ showalert }) {
 
   return (
     <>
-      <div className="container">
+      <div className="containe">
         <div className="mainbox">
           <form className="loginform">
             <h1>Create Account</h1>
