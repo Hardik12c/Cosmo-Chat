@@ -8,6 +8,7 @@ import Option from "./Option";
 import { IoSend } from "react-icons/io5";
 import Header from './Header'
 const socket = io("http://localhost:5000");
+let ind=0;
 const Chat = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
@@ -15,7 +16,7 @@ const Chat = () => {
   const [name, setname] = useState("");
   const [tag, settag] = useState("English");
   const [id, setId] = useState();
-  const arr = ["en", "hi", "es", "fr", "ar", "bn", "ne"];
+  const arr = ["en", "hi", "es", "fr", "ar", "bn", "ne","de","el","gu","ja","ko"];
   const category = [
     {
       id: 0,
@@ -27,12 +28,15 @@ const Chat = () => {
     { id: 4, lang: "Arabic" },
     { id: 5, lang: "Bengali" },
     { id: 6, lang: "Nepali" },
+    {id: 7, lang: "German" },
+    {id: 8, lang: "Greek" },
+    {id: 9, lang: "Gujarati" },
+    {id: 10, lang: "Japanese" },
+    {id: 11, lang: "Korean" },
   ];
 
-  let index;
   const onchangehandler = (e) => {
-    index = e.target.selectedIndex;
-    console.log(index);
+    ind=e.target.selectedIndex;
     settag(e.target.value);
   };
 
@@ -60,7 +64,6 @@ const Chat = () => {
     });
   };
   useEffect(() => {
-    index=0;
     if (localStorage.getItem("token")) {
       fetchdata();
     } else {
@@ -81,7 +84,7 @@ const Chat = () => {
     return new Promise((resolve, reject) => {
       (async () => {
         try {
-          const recMessage = await translate(messageToChange, arr[index]);
+          const recMessage = await translate(messageToChange, arr[ind]);
           setMessages([
             ...messages,
             { text: `${recName}: ${recMessage}`, position: "left" },
