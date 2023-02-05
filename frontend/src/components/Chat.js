@@ -1,4 +1,4 @@
-import "./App.css";
+// import "./App.css";
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import axios from "axios";
@@ -140,8 +140,6 @@ const Chat = () => {
                 value={message}
                 onChange={(event) => setMessage(event.target.value)}
               />
-              {/* <label htmlFor="dropmenu">Choose the language:</label> */}
-
               <select
                 value={tag}
                 onChange={onchangehandler}

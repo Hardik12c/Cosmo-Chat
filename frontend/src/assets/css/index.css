@@ -3,9 +3,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-/* body{
-    background: linear-gradient(rgba(234,234,234, 0.83) ,rgba(234,234,234, 0.83) ), url("../img/map\ background.jpg") no-repeat center center/cover;
-} */
 .mainbox{
     width: 100%;
     margin: auto;
