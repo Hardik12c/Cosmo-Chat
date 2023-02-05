@@ -2,6 +2,7 @@ require("dotenv").config();
 const connectToMongo = require("./Db/db");
 const express = require("express");
 const auth = require("./routes/auth");
+const Messages = require("./routes/Messages");
 var cors = require("cors");
 
 const port = process.env.PORT || 3000;
@@ -11,7 +12,9 @@ const app = express();
 
 const http=require('http').Server(app);
 
+// middleware
 
+const fetchUser=require('./middleware/fetchuser')
 app.use(cors());
 app.use(express.json());
 
@@ -40,7 +43,7 @@ socket.on('new-user-joined', name=>{
 
 // Available Routes
 app.use("/api/auth", auth);
-
+app.use("/api/messages",fetchUser,Messages)
 const start = async () => {
   try {
     await connectToMongo(process.env.connectionstring);
