@@ -1,6 +1,5 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Error from "./components/Error";
@@ -21,7 +20,6 @@ function App() {
   return (
     <>
       <Router>
-        <Header />
         <Alert alert={alert} />
         <Routes>
           <Route path="/" element={<Chat />} />

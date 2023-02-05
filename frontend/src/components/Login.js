@@ -33,10 +33,10 @@ export default function Login({ showalert }) {
   };
   return (
     <>
-      <div className="container">
+      <div className="containe">
         <div className="mainbox">
           <form className="loginform">
-            <h1>Sign In</h1>
+            <h1>Log In</h1>
             <div className="form-elements">
               <input
                 type="email"

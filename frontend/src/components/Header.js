@@ -1,8 +1,7 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
-  let location = useLocation();
   const logouttheuser = () => {
     localStorage.removeItem("token");
   };
@@ -11,7 +10,7 @@ export default function Navbar() {
     <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
       <div className="container-fluid">
         <Link className="navbar-brand" to="#">
-          Navbar
+          Cosmo Chat
         </Link>
         <button
           className="navbar-toggler"
@@ -25,19 +24,7 @@ export default function Navbar() {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link
-                className={`nav-link ${
-                  location.pathname === "/" ? "active" : ""
-                }`}
-                aria-current="page"
-                to="/"
-              >
-                Home
-              </Link>
-            </li>
-          </ul>
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
 
           {localStorage.getItem("token") ? (
             <Link
@@ -49,18 +36,7 @@ export default function Navbar() {
               Logout
             </Link>
           ) : (
-            <div>
-              <Link className="btn btn-primary mx-2" to="/login" role="button">
-                Login
-              </Link>
-              <Link
-                className="btn btn-primary mx-2"
-                to="/signup"
-                role="button"
-              >
-                Signup
-              </Link>
-            </div>
+            <div></div>
           )}
         </div>
       </div>

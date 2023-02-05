@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+body {
+  height: 100vh;
+  background: url("../assets/images/background.png") no-repeat center
+    center/cover;
+  font-family: "Inter", sans-serif;
+}
+.logo {
+  display: block;
+  margin: auto;
+  width: 100px;
+  height: 100px;
+}
+.send {
+  position: absolute;
+  bottom: 45px;
+}
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 92vh;
+}
+.heading {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  font-size: 30px;
+}
+.container {
+  min-height: 85vh;
+  max-width: 955px;
+  border: 2px solid black;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  margin: auto;
+  padding: 22px;
+  overflow-y: auto;
+  margin-bottom: 23px;
+}
+.message {
+  width: 34%;
+  padding: 5px 14px;
+  margin: 20px;
+  border: 2px solid black;
+  font-weight: bold;
+  border-radius: 6px;
+}
+.left {
+  float: left;
+  clear: both;
+  background-color:rgb(58 154 227);
+  color: white;
+  border-radius: 3px 20px 20px 20px;
+}
+.right {
+  float: right;
+  clear: both;
+  border-radius: 20px 3px 20px 20px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0,145,255);
+}
+#send-container {
+  display: block;
+  margin: auto;
+  text-align: center;
+  max-width: 985px;
+  width: 100%;
+}
+#messageInp {
+  width: 780px;
+  outline: none;
+  padding: 7px 2px;
+  border-radius: 12px;
+  border: 1px solid rgb(0, 0, 0);
+}
+.butn {
+  cursor: pointer;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 50%;
+  padding: 10px 11px;
+  background-color: rgb(61, 171, 255);
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.send form {
+  display: flex;
+}
+.icon {
+  filter: brightness(0) invert(1);
+}
+#dropmenu{
+    margin-left: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    outline: none;
+}
