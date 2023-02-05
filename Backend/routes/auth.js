@@ -40,6 +40,7 @@ router.post('/register',[
         // Creating Token
         const data={
             user:{
+                name:user.name,
                 id:user.id
             }
         }
@@ -79,6 +80,7 @@ router.post('/login',[
         }
         const data={
             user:{
+                name:user.name,
                 id:user.id
             }
         }

@@ -3,7 +3,7 @@ const { StatusCodes } = require("http-status-codes");
 
 const getallmessages = async (req, res) => {
   try {
-    const Messages = await MessageSchema.find({});
+    const Messages = await MessageSchema.find({}).sort({date:1});
     res.status(StatusCodes.OK).json({ Messages });
   } catch (error) {
     console.log(error);
@@ -11,9 +11,14 @@ const getallmessages = async (req, res) => {
 };
 
 const createamessage = async (req, res) => {
-  req.body.createdby = req.user.id;
-  const message = await MessageSchema.create(req.body);
-  res.status(StatusCodes.CREATED).json({message});
+  try {
+    req.body.createdby = req.user.id;
+    req.body.name=req.user.name;
+    const message = await MessageSchema.create(req.body);
+    res.status(StatusCodes.CREATED).json({message});
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 module.exports = { getallmessages, createamessage };
