@@ -14,6 +14,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [name, setname] = useState("");
   const [tag, settag] = useState("English");
+  const [id, setId] = useState();
   const arr = ["en", "hi", "es", "fr", "ar", "bn", "ne"];
   const category = [
     {
@@ -48,6 +49,7 @@ const Chat = () => {
               },
             }
           );
+          setId(data._id);
           setname(data.name);
           resolve(data.name);
         } catch (error) {
@@ -66,34 +68,11 @@ const Chat = () => {
   }, []);
 
   useEffect(() => {
-    if (name) {
-      socket.emit("new-user-joined", name);
-    }
-  }, [name]);
-
-  useEffect(() => {
-    socket.on("user-joined", (newName) => {
-      setMessages([
-        ...messages,
-        { text: `${newName} joined the chat`, position: "left" },
-      ]);
-    });
-
     socket.on("recieve", (data) => {
       changeMessage(data.name, data.message);
     });
-
-    socket.on("leave", (leaveName) => {
-      setMessages([
-        ...messages,
-        { text: `${leaveName} has left the chat`, position: "left" },
-      ]);
-    });
-
     return () => {
-      socket.off("user-joined");
       socket.off("recieve");
-      socket.off("leave");
     };
   }, [messages]);
 
@@ -117,7 +96,8 @@ const Chat = () => {
   const submitForm = (event) => {
     event.preventDefault();
     setMessages([...messages, { text: `You: ${message}`, position: "right" }]);
-    socket.emit("send", message);
+    fetchdata();
+    socket.emit("send", {message:message,id:id});
     setMessage("");
   };
 

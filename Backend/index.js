@@ -3,6 +3,8 @@ const connectToMongo = require("./Db/db");
 const express = require("express");
 const auth = require("./routes/auth");
 var cors = require("cors");
+const User = require('./models/User');
+
 
 const port = process.env.PORT || 3000;
 
@@ -28,8 +30,16 @@ socket.on('new-user-joined', name=>{
         users[socket.id] = name;
         socket.broadcast.emit('user-joined', name);
       });
-      socket.on('send', message=>{
-      socket.broadcast.emit('recieve', {message: message, name: users[socket.id]})
+      socket.on('send', async(data)=>{
+        const user = await User.findById(data.id);
+        if(user)
+        {
+          socket.broadcast.emit('recieve', {message: data.message, name: user.name})
+        }
+        else
+        {
+          console.log("User is null");
+        }
     });
     socket.on('disconnect', message=>{
         socket.broadcast.emit('leave', users[socket.id]);
