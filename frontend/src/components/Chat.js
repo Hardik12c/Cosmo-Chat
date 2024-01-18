@@ -7,7 +7,9 @@ import translate from "translate";
 import Option from "./Option";
 import { IoSend } from "react-icons/io5";
 import Header from "./Header";
-const socket = io("https://cosmochat-backend.onrender.com");
+const socket = io("https://cosmochat-backend.onrender.com",{
+  transports: ["websocket"]
+});
 let ind = 0;
 const Chat = () => {
   const navigate = useNavigate();
