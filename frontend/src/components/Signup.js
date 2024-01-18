@@ -12,7 +12,7 @@ export default function Signup({ showalert }) {
   const postform = async (input) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "https://cosmochat-backend.onrender.com/api/auth/register",
         { name: input.name, email: input.email, password: input.password }
       );
       localStorage.setItem("token", data.token);
