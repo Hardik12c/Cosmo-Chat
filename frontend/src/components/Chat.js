@@ -13,7 +13,6 @@ const Chat = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [name, setname] = useState("");
   const [tag, settag] = useState("English");
   const [id, setId] = useState();
   const arr = ["en", "hi", "es", "fr", "ar", "bn", "ne","de","el","gu","ja","ko"];
@@ -54,7 +53,6 @@ const Chat = () => {
             }
           );
           setId(data._id);
-          setname(data.name);
           resolve(data.name);
         } catch (error) {
           console.log(error);
